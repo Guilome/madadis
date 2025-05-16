@@ -1,17 +1,20 @@
 import {useEffect, useState} from "react";
+import type {Product} from "../services/type.ts";
 import apiService from "../services/serviceAPI.ts";
+import Spinner from "../components/Spinner.tsx";
 
-function Categories() {
+const DetailProduit = (props: { id: string }) => {
+    const idProduct = props.id;
 
-    const [listCategories, setCategories] = useState<string[]>();
+    const [product, setProduct] = useState<Product>();
     const [status, setStatus] = useState<'pending' | 'success' | 'error'>('pending');
     const [error, setError] = useState<Error>();
 
     useEffect(() => {
         setStatus('pending');
-        apiService.productService.getCategories()
+        apiService.productService.getProduct(idProduct)
             .then((response: any) => {
-                setCategories(response);
+                setProduct(response);
                 setStatus('success');
             })
             .catch((e: any) => {
@@ -19,19 +22,15 @@ function Categories() {
                 setError(e);
             });
     }, []);
-    if (status === 'pending') return <h1>Loading...</h1>;
+    if (status === 'pending') return <div><Spinner/></div>;
     if (status === 'error') return <h1>Error ! {error?.message}</h1>;
     if (status === 'success') {
         return (
-            <div className="flex flex-row flex-wrap justify-center items-center">
-                <ul>
-                {listCategories!.map((category) => (
-                    <li>{category}</li>
-                ))}
-                </ul>
+            <div>
+                {product?.title}
             </div>
         );
     }
-}
+};
 
-export default Categories;
+export default DetailProduit;

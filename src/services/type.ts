@@ -19,7 +19,7 @@ export type Product = {
    price: number,
    rating: number,
    returnPolicy: string,
-   reviews: {comment: string; date: Date; rating: number; reviewerEmail: string; reviewerName: string}[],
+   reviews: Review[],
    shippingInformation: string,
    sku: string,
    stock: number,
@@ -29,3 +29,11 @@ export type Product = {
    warrantyInformation: string,
    weight: number
 };
+
+export type Review = {
+   comment: string,
+   date: Date,
+   rating: number,
+   reviewerEmail: string,
+   reviewerName: string
+}

@@ -1,9 +1,8 @@
 const Spinner = () => {
     return (
-        <div className="flex justify-center items-center w-full h-full">
-            <div className="absolute top-0 left-0 w-full h-full rounded-full border-2 border-sky-500 animate-pulse"></div>
-            <div className="absolute top-0 left-0 w-full h-full rounded-full border-2 border-sky-300 animate-pulse delay-150"></div>
-            <h1>Chargement en cours ...</h1>
+        <div className="flex flex-col justify-center items-center m-6">
+            <div className="inline-block w-48 h-48 border-8 border-solid border-gray-300 rounded-full border-t-blue-400 animate-spin"></div>
+            <h1 className="border-sky-950 text-5xl mt-4">Chargement en cours ...</h1>
         </div>
     );
 };

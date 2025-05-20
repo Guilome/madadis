@@ -10,18 +10,22 @@ import DetailProduit from "./pages/DetailProduit.tsx";
 
 function AppRouter() {
     return (
-        <BrowserRouter>
-            <Header/>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/produits" element={<Produits />} />
-                <Route path="/produit?id" element={<DetailProduit />} />
-                <Route path="/categories" element={<Categories />} />
-                <Route path="/panier" element={<Panier />} />
-                <Route path="/contact" element={<Contact />} />
-            </Routes>
-            <Footer/>
-        </BrowserRouter>
+        <div className="flex flex-col min-h-screen">
+            <BrowserRouter>
+                <Header/>
+                <div className="flex justify-center items-center flex-grow">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/produits" element={<Produits />} />
+                        <Route path="/produit/:id" element={<DetailProduit />} />
+                        <Route path="/categories" element={<Categories />} />
+                        <Route path="/panier" element={<Panier />} />
+                        <Route path="/contact" element={<Contact />} />
+                    </Routes>
+                </div>
+                <Footer/>
+            </BrowserRouter>
+        </div>
     )
 }
 

@@ -1,9 +1,20 @@
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {FaChevronLeft} from "@react-icons/all-files/fa/FaChevronLeft";
 import {FaChevronRight} from "@react-icons/all-files/fa/FaChevronRight";
 
 const Carousel = (props:{ slides: string[] }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const timeoutRef = useRef(0);
+
+    const delay = 3000;
+
+    useEffect(() => {
+        timeoutRef.current = setTimeout(() => {
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % props.slides.length);
+        }, delay);
+
+        return () => clearTimeout(timeoutRef.current);
+    }, [currentIndex]);
 
     const prevSlide = () => {
         setCurrentIndex((prev) => (prev === 0 ? props.slides.length - 1 : prev - 1));
@@ -14,22 +25,22 @@ const Carousel = (props:{ slides: string[] }) => {
     };
 
     return (
-        <div className="relative w-full max-w-2xl mx-auto overflow-hidden rounded-lg shadow-lg">
+        <div className="relative w-4/6 overflow-hidden rounded-lg shadow-lg">
 
-            <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+            <div className="flex transition-transform duration-2000 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                 {props.slides.map((slide: any, index: number) => (
-                    <div key={index} className="min-w-full h-full flex items-center justify-center bg-gray-200">
-                        <img src={slide} alt={`carousel${index + 1}`} />
+                    <div className="min-w-fit h-fit flex items-center justify-center">
+                        <img className="w-fit h-fit" src={slide} alt={`carousel${index + 1}`} />
                     </div>
                 ))}
             </div>
 
             <button onClick={prevSlide} className="absolute top-1/2 -translate-y-1/2 left-3 bg-white p-2 rounded-full shadow hover:bg-sky-500">
-                <FaChevronLeft className="text-2xl text-sky-500 hover:text-sky-950" />
+                <FaChevronLeft className="text-2xl text-sky-500 hover:text-sky-50" />
             </button>
 
             <button onClick={nextSlide} className="absolute top-1/2 -translate-y-1/2 right-3 bg-white p-2 rounded-full shadow hover:bg-sky-500">
-                <FaChevronRight className="text-2xl text-sky-500 hover:text-sky-950" />
+                <FaChevronRight className="text-2xl text-sky-500 hover:text-sky-50" />
             </button>
 
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">

@@ -1,16 +1,12 @@
-import {useState} from "react";
-
 const Stock = (props: {quantiteInitiale: number, onChangeStock: any}) => {
-   const [quantite, setQuantite] = useState(props.quantiteInitiale);
 
     let quantites: number[] = [];
-    for (let i = 0; i <= props.quantiteInitiale; i++) {
+    for (let i = 1; i <= Math.round(props.quantiteInitiale); i++) {
         quantites.push(i);
     }
 
     const handleChangeAction = (event: any) => {
-        setQuantite(event.target.value);
-        props.onChangeStock(quantite);
+        props.onChangeStock(event.target.value);
     };
 
     if (props.quantiteInitiale == 0){
@@ -19,11 +15,13 @@ const Stock = (props: {quantiteInitiale: number, onChangeStock: any}) => {
         )
     } else {
         return (
-            <div style={{ border: '1px solid #ccc', padding: '10px', margin: '10px' }}>
-                <select onChange={handleChangeAction}>
-                    <option value="0" disabled selected>0</option>
-                    {quantites.map((q: number) => (
-                        <option value={q}>{q}</option>
+            <div>
+                <select className="h-16 border-1 border-solid border-sky-500 p-3 rounded-2xl text-2xl text-center align-middle"
+                        onChange={handleChangeAction}
+                        defaultValue={0}>
+                    <option value="0" disabled>0</option>
+                    {quantites.map((q: number, index: number) => (
+                        <option key={index} value={q}>{q}</option>
                     ))}
                 </select>
             </div>

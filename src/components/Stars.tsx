@@ -5,7 +5,7 @@ const Stars = (props: { fraction: number }) => {
     const fill = props.fraction * 100;
 
     return (
-        <div className="relative w-6 h-6 text-yellow-500">
+        <div className="relative w-8 h-8 text-yellow-500 text-3xl">
             <FaStar className="absolute text-gray-300" />
             <FaStar
                 className="relative top-0 left-0 overflow-hidden text-yellow-500"

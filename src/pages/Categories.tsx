@@ -47,10 +47,7 @@ function Categories() {
                     <li onClick={() => goToProduit(index)}
                         className="rounded-4xl
                                  bg-sky-950
-                                   p-6
-                                   m-6
                                  text-blue-50
-                                   text-4xl
                                    h-[150px]
                                    w-1/5
                                    content-center
@@ -59,7 +56,17 @@ function Categories() {
                                    hover:bg-sky-50
                                    hover:text-blue-950
                                    hover:border-4
-                                   hover:border-blue-950">
+                                   hover:border-blue-950
+                                   text-xl
+                                   p-2
+                                   m-2
+                                   md:m-4
+                                   md:p-4
+                                   lg:p-6
+                                   lg:m-6
+                                   md:text-2xl
+                                   lg:text-4xl
+                                   max-md:w-full">
                         {category}
                     </li>
                 ))}

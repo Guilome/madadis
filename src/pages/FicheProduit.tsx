@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import type {Product, Review} from "../services/type.ts";
+import type {Detail, ImageGalerie, Product, Review} from "../services/type.ts";
 import apiService from "../services/serviceAPI.ts";
 import Spinner from "../components/Spinner.tsx";
 import {useParams} from "react-router-dom";
@@ -7,11 +7,16 @@ import Rating from "../components/Rating.tsx";
 import Stock from "../components/Stock.tsx";
 import Avis from "../components/Avis.tsx";
 import Accordion from "../components/Accordion.tsx";
+import DetailsProduit from "../components/DetailsProduit.tsx";
+import setDetail from "../services/SetObjects.ts";
+import {useCart} from "../services/CartContext.tsx";
+import GalerieProduit from "../components/GalerieProduit.tsx";
+import BadgeStock from "../components/BadgeStock.tsx";
 
-const DetailProduit = () => {
+const FicheProduit = () => {
 
     const {id} = useParams();
-
+    const { addToCart } = useCart();
     const [quantity, setQuantity] = useState(0);
     const [product, setProduct] = useState<Product>();
     const [status, setStatus] = useState<'pending' | 'success' | 'error'>('pending');
@@ -30,64 +35,80 @@ const DetailProduit = () => {
             });
     }, []);
 
-    const setStock = (stock: number)=> {
-        setQuantity(stock);
-        console.log(quantity);
-    };
+    const calculPrixInitial = (prix: number, reduction: number) => {
+        const prixInitial = (prix / (1 - (reduction/100)));
+        return prixInitial.toFixed(2);
+    }
+
     if (status === 'pending') return <div><Spinner/></div>;
     if (status === 'error') return <h1>Error ! {error?.message}</h1>;
     if (status === 'success') {
+
+        let detail: Detail = setDetail(product!);
+
+        const setStock = (stock: number)=> {
+            setQuantity(stock);
+        };
+
+        const accordionItems = [
+            { title: 'Description', content: product!.description },
+            { title: 'Détails', content: <DetailsProduit details={detail} /> },
+        ];
+
+        const galerieImage: ImageGalerie[] = [];
+
+        product!.images.forEach((image: string, index: number) => {
+            galerieImage.push({id: index, alt:`vue-${index}`,src: image})
+        })
+
         return (
-            <div className="flex flex-col w-full m-6">
-                <div className="flex flex-row">
-                    <div className="flex flex-row justify-center flex-wrap w-1/2">
-                        {product!.images.map((image: any) => (
-                            <img className="w-1/2 h-auto" src={image} alt="test"/>
-                        ))}
+            <div className="flex flex-col justify-center content-center items-center w-full m-6">
+                <h1 className="text-blue-950 text-4xl">{product!.title} (Lot de {product!.minimumOrderQuantity})</h1>
+                <p className="text-xs underline">Reference : {product!.sku}</p>
+                <p className="text-blue-900 font-medium text-l">Prix à l'unité : {product!.price}€</p>
+                <div className="flex flex-row flex-wrap justify-evenly">
+                    <div className="flex flex-row justify-center flex-wrap flex-1/2">
+                        <GalerieProduit images={galerieImage} />
                     </div>
-                    <div className="flex flex-col justify-start content-center w-1/2">
-                        <h1 className="text-blue-950 text-4xl">{product!.title}</h1>
-                        <p className="text-xs underline">Reference : {product!.sku}</p>
-                        <div className="flex flex-row flex-wrap justify-evenly">
-                            <p>{product!.category}</p>
-                            <p>{product!.brand}</p>
+                    <div className="flex flex-col justify-start content-center flex-1/2">
+                        <div className="flex flex-row flex-wrap justify-evenly m-6">
+                            <div className="flex flex-row flex-wrap justify-evenly items-center m-6">
+
+                                <div className="flex relative flex-row flex-wrap justify-evenly m-6">
+                                    <p className="text-blue-900 font-medium line-through text-2xl">
+                                        {calculPrixInitial((product!.price * product!.minimumOrderQuantity), product!.discountPercentage)}€
+                                    </p>
+                                    <p className="text-blue-900 font-medium text-6xl">{(product!.price * product!.minimumOrderQuantity).toFixed(2)} €</p>
+                                    <div className="absolute -top-8 -right-6 bg-sky-500 text-sky-50 font-bold text-l px-4 py-2 rounded-full z-10">
+                                        {product!.discountPercentage}%
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex flex-row flex-wrap m-6 justify-center items-center">
+                                <p className="text-blue-900 font-medium text-2xl mr-2">Notes : {product!.rating} / 5</p><Rating note={product!.rating} />
+                            </div>
                         </div>
-                        <div className="flex flex-row flex-wrap justify-evenly">
-                            <p>{product!.price}</p>
-                            <p>{product!.discountPercentage}</p>
-                            <Rating note={product!.rating} /><p>{product!.rating}</p>
-                        </div>
-                        <div className="flex flex-col items-center text-center border-2 border-sky-950 rounded-full p-4 m-6 bg-sky-950">
-                            <Accordion items={{title: "Description"; children: {product!.description}}} />
-                            <h2 className="text-xl text-blue-300">Description</h2>
-                            <p className="text-blue-50">{product!.description}</p>
-                        </div>
-                        <div className="flex flex-row flex-wrap justify-evenly">
-                            <Stock quantiteInitiale={product!.stock} onChangeStock={setStock} />
-                            <button className="bg-sky-500 rounded-2xl text-sky-50 px-2" onClick={() => console.log("Add to cart")}>Ajouter au panier</button>
+                        <Accordion items={accordionItems} />
+                        <div className="flex flex-row flex-wrap justify-evenly items-center m-8">
+                            <Stock key={product!.id} quantiteInitiale={product!.stock/product!.minimumOrderQuantity} onChangeStock={setStock} />
+                            <BadgeStock statutStock={product!.availabilityStatus} />
+                            <button className="bg-sky-500 rounded-2xl text-sky-50 p-2 m-6 w-1/2" disabled={quantity === 0} onClick={() => addToCart(product!, quantity)}>
+                                Ajouter au panier
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col items-end">
+                <div className="flex flex-col flex-wrap justify-evenly items-end w-full">
                     <div className="flex flex-row flex-wrap justify-evenly w-full">
-                        {product!.reviews.map((review: Review) => (
-                            <Avis review={review} />
+                        {product!.reviews.map((review: Review, index :number) => (
+                            <Avis key={index} review={review} />
                         ))}
                     </div>
-                    <button className="bg-sky-500 rounded-2xl text-sky-50 px-2 w-1/5" onClick={() => console.log("Add Review")}>Laisser un avis</button>
-                </div>
-                <div className="flex flex-row">
-
-                </div>
-                <div className="flex flex-row">
-
-                </div>
-                <div className="flex flex-row">
-
+                    <button className="bg-sky-500 rounded-2xl text-sky-50 p-2 m-6 w-1/5" onClick={() => console.log("Add Review")}>Laisser un avis</button>
                 </div>
             </div>
         );
     }
 };
 
-export default DetailProduit;
+export default FicheProduit;

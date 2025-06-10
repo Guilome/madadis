@@ -6,11 +6,11 @@ import { faTiktok } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
     return (
-        <footer className="flex flex-row flex-wrap bg-sky-950 px-8 py-4 w-full">
-            <div className="flex flex-row items-center justify-start">
+        <footer className="flex flex-row flex-wrap items-center justify-between bg-sky-950 px-8 py-4 w-full">
+            <div className="flex flex-row items-center">
                 <p className="text-blue-300">Copyright &copy; 2025 - All rights reserved</p>
             </div>
-            <div className="flex flex-row items-center justify-end">
+            <div className="flex flex-row items-center">
                 <FontAwesomeIcon className="text-blue-300 mr-4" icon={faInstagram} size="xl" />
                 <FontAwesomeIcon className="text-blue-300 mr-4" icon={faFacebook} size="xl" />
                 <FontAwesomeIcon className="text-blue-300 mr-4" icon={faTwitter} size="xl" />

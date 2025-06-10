@@ -7,7 +7,7 @@ const Avis = (props: {review: Review}) => {
     const reviewDate = new Intl.DateTimeFormat('fr-FR').format(new Date(review.date));
 
     return (
-        <div className="flex flex-col border-1 p-4 m-6 rounded-xl border-sky-950">
+        <div className="flex flex-col border-1 p-4 m-2 rounded-xl border-sky-950">
             <div className="flex flex-row items-center">
                 <p className="font-bold mr-10">{review.reviewerName}</p>
                 <Rating note={review.rating} />

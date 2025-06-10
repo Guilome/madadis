@@ -89,48 +89,4 @@ const productService = {
     }
 };
 
-const authService = {
-    /*
-        Appel le service de connexion
-     */
-    login: async (username: string, password: string) => {
-        try {
-            const response = await api.post(`/auth/login`, {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username,
-                    password,
-                    expiresInMins: 30,
-                }),
-                credentials: 'include'
-            });
-            return response.data;
-        } catch (error) {
-            throw error;
-        }
-    },
-
-    // Credentials ?
-    /*
-        Recupere les infos de connexion de l'utilisateur connecté
-     */
-    getLoginInfo: async (token: string) => {
-        try {
-            return api.get<ResponseProduct>(`/auth/me'`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-                //credentials: 'include'
-            })
-                .then((response) => {
-                    return response.data;
-                });
-        } catch (error) {
-            throw error;
-        }
-    }
-}
-
-export default {productService, authService};
+export default {productService};

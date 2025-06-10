@@ -62,8 +62,9 @@ const FicheProduit = () => {
         })
 
         return (
-            <div className="flex flex-col justify-center content-center items-center w-full m-6">
-                <h1 className="text-blue-950 text-4xl">{product!.title} (Lot de {product!.minimumOrderQuantity})</h1>
+            <div className="flex flex-col justify-center content-center items-center w-full lg:m-6 md:m-4 max-md:m-2">
+                <h1 className="text-blue-950 text-4xl">{product!.title}</h1>
+                <h1 className="text-blue-950 text-2xl">(Lot de {product!.minimumOrderQuantity})</h1>
                 <p className="text-xs underline">Reference : {product!.sku}</p>
                 <p className="text-blue-900 font-medium text-l">Prix à l'unité : {product!.price}€</p>
                 <div className="flex flex-row flex-wrap justify-evenly">
@@ -71,20 +72,19 @@ const FicheProduit = () => {
                         <GalerieProduit images={galerieImage} />
                     </div>
                     <div className="flex flex-col justify-start content-center flex-1/2">
-                        <div className="flex flex-row flex-wrap justify-evenly m-6">
-                            <div className="flex flex-row flex-wrap justify-evenly items-center m-6">
-
-                                <div className="flex relative flex-row flex-wrap justify-evenly m-6">
-                                    <p className="text-blue-900 font-medium line-through text-2xl">
+                        <div className="flex flex-row flex-wrap justify-evenly lg:m-6 md:m-4 max-md:m-2">
+                            <div className="flex flex-row flex-wrap justify-evenly items-center lg:m-6 md:m-4 max-md:m-2">
+                                <div className="flex relative flex-row flex-wrap justify-evenly lg:m-6 md:m-4 max-md:m-2">
+                                    <p className="text-blue-900 font-medium line-through max-md:text-l md:text-xl lg:text-2xl">
                                         {calculPrixInitial((product!.price * product!.minimumOrderQuantity), product!.discountPercentage)}€
                                     </p>
-                                    <p className="text-blue-900 font-medium text-6xl">{(product!.price * product!.minimumOrderQuantity).toFixed(2)} €</p>
-                                    <div className="absolute -top-8 -right-6 bg-sky-500 text-sky-50 font-bold text-l px-4 py-2 rounded-full z-10">
+                                    <p className="text-blue-900 font-medium max-md:text-2xl md:text-4xl lg:text-6xl">{(product!.price * product!.minimumOrderQuantity).toFixed(2)} €</p>
+                                    <div className="absolute -top-8 -right-6 bg-sky-500 text-sky-50 font-bold px-4 py-2 rounded-full z-10 md:text-s max-md:text-xs">
                                         {product!.discountPercentage}%
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-row flex-wrap m-6 justify-center items-center">
+                            <div className="flex flex-row flex-wrap justify-center items-center lg:m-6 md:m-4 max-md:m-2">
                                 <p className="text-blue-900 font-medium text-2xl mr-2">Notes : {product!.rating} / 5</p><Rating note={product!.rating} />
                             </div>
                         </div>
@@ -92,7 +92,7 @@ const FicheProduit = () => {
                         <div className="flex flex-row flex-wrap justify-evenly items-center m-8">
                             <Stock key={product!.id} quantiteInitiale={product!.stock/product!.minimumOrderQuantity} onChangeStock={setStock} />
                             <BadgeStock statutStock={product!.availabilityStatus} />
-                            <button className="bg-sky-500 rounded-2xl text-sky-50 p-2 m-6 w-1/2" disabled={quantity === 0} onClick={() => addToCart(product!, quantity)}>
+                            <button className="bg-sky-500 rounded-2xl text-sky-50 p-2 w-1/2 lg:m-6 md:m-4 max-md:m-2" disabled={quantity === 0} onClick={() => addToCart(product!, quantity)}>
                                 Ajouter au panier
                             </button>
                         </div>
@@ -104,7 +104,6 @@ const FicheProduit = () => {
                             <Avis key={index} review={review} />
                         ))}
                     </div>
-                    <button className="bg-sky-500 rounded-2xl text-sky-50 p-2 m-6 w-1/5" onClick={() => console.log("Add Review")}>Laisser un avis</button>
                 </div>
             </div>
         );

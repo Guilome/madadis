@@ -31,10 +31,10 @@ function Home() {
     const carouselImage = [main_image, nouvelle_arrivee, sales];
     return (
         <div className="flex flex-col items-center justify-center">
-            <div className="flex flex-row justify-center w-full h-2/3 my-12">
+            <div className="flex flex-row justify-center w-full h-2/3 my-6">
                 <Carousel slides={carouselImage} />
             </div>
-            <h1 className="text-sky-500 text-8xl m-6 p-2">Nos produits les plus populaires</h1>
+            <h1 className="text-sky-500 m-6 p-2 max-md:text-2xl md:text-4xl lg:text-8xl">Nos produits les plus populaires</h1>
             {status === 'error' && (
                 <div className="flex justify-center items-center mt-12">
                     <h1 className="text-2xl text-red-700">Error ! {error?.message}</h1>
@@ -46,7 +46,7 @@ function Home() {
                 </div>
             )}
             {status === 'success' && (
-                <div className="flex flex-row flex-wrap justify-center items-center m-3">
+                <div className="flex flex-row flex-wrap justify-center items-center">
                     {listProducts!.map((product) => (
                         <VignetteProduit key={product.id} product={product} />
                     ))}

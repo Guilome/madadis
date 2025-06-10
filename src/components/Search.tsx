@@ -44,7 +44,7 @@ function SearchInput() {
 
     return (
         <div>
-            <div className="flex border-1 border-solid border-sky-500 rounded-4xl overflow-hidden bg-sky-50 w-[300px] h-10 px-4 m-3">
+            <div className="flex border-1 border-solid border-sky-500 rounded-4xl overflow-hidden bg-sky-50 w-[300px] h-10 px-4 m-2">
                 <input className="grow border-none outline-none bg-transparent text-lg w-full h-full" type="text"
                        placeholder="Recherche"
                        value={searchTerm}

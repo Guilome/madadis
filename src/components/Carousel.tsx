@@ -25,7 +25,7 @@ const Carousel = (props:{ slides: string[] }) => {
     };
 
     return (
-        <div className="relative w-4/6 overflow-hidden rounded-lg shadow-lg">
+        <div className="relative w-5/6 overflow-hidden rounded-lg shadow-lg">
 
             <div className="flex transition-transform duration-2000 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                 {props.slides.map((slide: any, index: number) => (

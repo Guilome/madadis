@@ -36,4 +36,46 @@ export type Review = {
    rating: number,
    reviewerEmail: string,
    reviewerName: string
+};
+
+export type Detail = {
+   tags: string[],
+   weight: number,
+   dimensions: Dimensions,
+   warrantyInformation: string,
+   shippingInformation: string,
+   availabilityStatus: string,
+   returnPolicy: string,
+   minimumOrderQuantity: number,
+   meta: Meta,
+   thumbnail: any,
+};
+
+export type Dimensions = {
+   width: number,
+   height: number,
+   depth: number
+};
+
+export type Meta = {
+   createdAt: Date,
+   updatedAt: Date,
+   barcode: string,
+   qrCode: any
+};
+
+export type CartItem = Product & { quantity: number };
+
+export type CartContext = {
+   cart: CartItem[],
+   addToCart: (product: Product, quantity: number) => void,
+   removeFromCart: (productId: string) => void,
+   clearCart: () => void,
+   total: number
+};
+
+export type ImageGalerie = {
+   id: number,
+   src: string,
+   alt: string
 }

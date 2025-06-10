@@ -4,3 +4,22 @@
 @theme {
     --font-poppins: 'Poppins', sans-serif;
 }
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    scroll-behavior: smooth;
+}
+
+/* Masquage de la barre de defilement - IE 10+ et Firefox */
+html {
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+/* Masquage de la barre de defilement - Chrome & Safari & Edge */
+html::-webkit-scrollbar {
+    display: none;
+}

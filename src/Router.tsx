@@ -6,7 +6,7 @@ import Panier from "./pages/Panier.tsx";
 import Contact from "./pages/Contact.tsx";
 import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
-import DetailProduit from "./pages/DetailProduit.tsx";
+import FicheProduit from "./pages/FicheProduit.tsx";
 
 function AppRouter() {
     return (
@@ -17,7 +17,8 @@ function AppRouter() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/produits" element={<Produits />} />
-                        <Route path="/produit/:id" element={<DetailProduit />} />
+                        <Route path="/produits/:category" element={<Produits />} />
+                        <Route path="/produit/:id" element={<FicheProduit />} />
                         <Route path="/categories" element={<Categories />} />
                         <Route path="/panier" element={<Panier />} />
                         <Route path="/contact" element={<Contact />} />

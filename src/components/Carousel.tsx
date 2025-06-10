@@ -35,12 +35,12 @@ const Carousel = (props:{ slides: string[] }) => {
                 ))}
             </div>
 
-            <button onClick={prevSlide} className="absolute top-1/2 -translate-y-1/2 left-3 bg-white p-2 rounded-full shadow hover:bg-sky-500">
-                <FaChevronLeft className="text-2xl text-sky-500 hover:text-sky-50" />
+            <button onClick={prevSlide} className="absolute top-1/2 -translate-y-1/2 left-3 bg-sky-500 p-2 rounded-full shadow hover:bg-sky-700">
+                <FaChevronLeft className="text-2xl text-sky-50" />
             </button>
 
-            <button onClick={nextSlide} className="absolute top-1/2 -translate-y-1/2 right-3 bg-white p-2 rounded-full shadow hover:bg-sky-500">
-                <FaChevronRight className="text-2xl text-sky-500 hover:text-sky-50" />
+            <button onClick={nextSlide} className="absolute top-1/2 -translate-y-1/2 right-3 bg-sky-500 p-2 rounded-full shadow hover:bg-sky-700">
+                <FaChevronRight className="text-2xl text-sky-50" />
             </button>
 
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">

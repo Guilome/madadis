@@ -23,7 +23,7 @@ function Contact() {
     };
 
     return (
-        <div className="mx-3 my-6 p-6 bg-sky-950 w-full rounded-2xl">
+        <div className="mx-3 my-6 p-6 bg-sky-950 w-3/4 rounded-2xl">
             <h2 className="text-2xl font-bold mb-6 text-sky-50">Contactez-nous</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="flex flex-row flex-wrap w-full justify-around">

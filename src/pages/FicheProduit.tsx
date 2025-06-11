@@ -68,7 +68,7 @@ const FicheProduit = () => {
                 <p className="text-xs underline">Reference : {product!.sku}</p>
                 <p className="text-blue-900 font-medium text-l">Prix à l'unité : {product!.price}€</p>
                 <div className="flex flex-row flex-wrap justify-evenly">
-                    <div className="flex flex-row justify-center flex-wrap flex-1/2">
+                    <div className="flex flex-row justify-center content-center flex-1/2">
                         <GalerieProduit images={galerieImage} />
                     </div>
                     <div className="flex flex-col justify-start content-center flex-1/2">
@@ -88,11 +88,13 @@ const FicheProduit = () => {
                                 <p className="text-blue-900 font-medium text-2xl mr-2">Notes : {product!.rating} / 5</p><Rating note={product!.rating} />
                             </div>
                         </div>
-                        <Accordion items={accordionItems} />
+                        <div className="w-full min-w-0">
+                            <Accordion items={accordionItems} />
+                        </div>
                         <div className="flex flex-row flex-wrap justify-evenly items-center m-8">
                             <Stock key={product!.id} quantiteInitiale={product!.stock/product!.minimumOrderQuantity} onChangeStock={setStock} />
                             <BadgeStock statutStock={product!.availabilityStatus} />
-                            <button className="bg-sky-500 rounded-2xl text-sky-50 p-2 w-1/2 lg:m-6 md:m-4 max-md:m-2" disabled={quantity === 0} onClick={() => addToCart(product!, quantity)}>
+                            <button className="bg-sky-500 rounded-2xl text-sky-50 p-2 w-1/2 lg:m-6 md:m-4 max-md:m-2 hover:cursor-pointer" onClick={() => addToCart(product!, quantity)}>
                                 Ajouter au panier
                             </button>
                         </div>

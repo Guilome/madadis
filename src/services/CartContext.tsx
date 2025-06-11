@@ -7,6 +7,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     const [cart, setCart] = useState<CartItem[]>([]);
 
     const addToCart = (product: Product, quantity: number) => {
+        if (quantity == 0) {
+            alert('Veuillez d\'abors choisir une quantité.');
+            return ;
+        }
         setCart(prev => {
             // @ts-ignore
             const existing = prev.includes((item: CartItem) => item.id === product.id);
@@ -15,6 +19,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             }
             return [...prev, { ...product, quantity: quantity }];
         });
+        alert('Le produit vient d\'être ajouté a votre panier.');
     };
 
     const removeFromCart = (productId: string) => {
